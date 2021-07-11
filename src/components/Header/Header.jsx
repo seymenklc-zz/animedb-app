@@ -9,7 +9,6 @@ const Header = () => {
             <header className='header'>
                 <span>The Anime Database</span>
             </header>
-            <Typography>Bu arada uzun zamandır durum güncellemesi yapmıyorduk, Mushoku Tensei'yi bitirdim öneririm.</Typography>
             <hr />
         </>
     );
