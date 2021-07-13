@@ -8,9 +8,8 @@ import SearchIcon from '@material-ui/icons/Search';
 
 import SortedAnime from '../../components/SortedAnime';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
     root: {
-        minWidth: 300,
         width: 390,
         display: 'inline-block',
         whiteSpace: 'nowrap',
@@ -18,10 +17,10 @@ const useStyles = makeStyles(theme => ({
         marginLeft: 0,
         marginTop: 5
     }
-}));
+});
 
 const Search = ({ truncateOverview }) => {
-    const [search, setSearch] = useState('');
+    const [search, setSearch] = useState('Naruto');
     const [animeRes, setAnimeRes] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -29,10 +28,10 @@ const Search = ({ truncateOverview }) => {
 
     const fetchAnime = async (query) => {
         try {
+            setLoading(true);
             const { data } = await axios.get(`https://api.jikan.moe/v3/search/anime?q=${query}&order_by=title&sort=asc&limit=10`);
             if (data.results) setAnimeRes(data.results);
-            setLoading(true);
-
+            setLoading(false);
         } catch (error) {
             console.log(error);
         }
@@ -45,21 +44,24 @@ const Search = ({ truncateOverview }) => {
     return (
         <Container>
             <TextField
-                style={{ marginTop: '8px', marginBottom: '8px' }}
-                label='Search'
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                variant='outlined'
                 autoFocus
                 fullWidth
+                label='Search'
+                variant='outlined'
+                placeholder='Search Anime...'
+                style={{ marginTop: '8px', marginBottom: '8px', width: '149vh' }}
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
                 InputProps={{
                     startAdornment: (
-                        <InputAdornment position="start"><SearchIcon /> </InputAdornment>
+                        <InputAdornment position="start">
+                            <SearchIcon />
+                        </InputAdornment>
                     )
                 }}
             />
             <br />
-            {loading ? (animeRes.map(anime => (
+            {!loading ? (animeRes.map(anime => (
                 <div key={anime.mal_id} className={classes.root}>
                     <Grid container spacing={2} direction='row'>
                         <SortedAnime
@@ -76,7 +78,7 @@ const Search = ({ truncateOverview }) => {
                         />
                     </Grid>
                 </div>
-            ))) : (<CircularProgress />)}
+            ))) : <CircularProgress />}
         </Container>
     );
 };

@@ -5,7 +5,7 @@ import { Container, Grid, Typography } from '@material-ui/core';
 
 import SingleFavorite from '../../components/SingleFavorite';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
     root: {
         minWidth: 300,
         width: 390,
@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
         marginLeft: 0,
         marginTop: 5,
     }
-}));
+});
 
 const SinglePopulerAnime = ({ favorites, truncateOverview, removeFavorite, }) => {
     const classes = useStyles();
@@ -41,7 +41,7 @@ const SinglePopulerAnime = ({ favorites, truncateOverview, removeFavorite, }) =>
                             id={fav.id}
                         />
                     </div>
-                ))) : (<Typography variant='h6'>There is no favorite.</Typography>)}
+                ))) : <Typography variant='h6'>There is no favorite.</Typography>}
             </Grid>
         </Container>
     );

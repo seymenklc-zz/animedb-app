@@ -9,7 +9,7 @@ import SearchIcon from '@material-ui/icons/Search';
 
 const useStyles = makeStyles({
     root: {
-        width: '100%',
+        width: '30%',
         position: 'fixed',
         borderRadius: '5px',
         bottom: 0,
@@ -17,6 +17,7 @@ const useStyles = makeStyles({
         right: 0,
         zIndex: 100,
         backgroundColor: '#6495ed',
+        marginLeft: '35%'
     },
 });
 

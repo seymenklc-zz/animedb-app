@@ -5,10 +5,9 @@ import { Grid, Typography, IconButton, Avatar, CardActions, CardContent, CardMed
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import FindInPageIcon from '@material-ui/icons/FindInPage';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles({
     root: {
-        minWidth: 300,
-        width: 350,
+        width: 300,
         display: 'inline-block',
         whiteSpace: 'nowrap',
         marginRight: 0,
@@ -31,9 +30,11 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         justifyContent: 'space-around'
     },
-}));
+});
 
-const SingleFavorite = ({ rank, title, image, score, url, type, startDate, endDate, episodes, members, id, truncateOverview, removeFavorite }) => {
+const SingleFavorite = (props) => {
+    const { rank, title, image, score, url, type, startDate, endDate, episodes, members, id, truncateOverview, removeFavorite } = props;
+
     const classes = useStyles();
 
     return (
@@ -61,11 +62,11 @@ const SingleFavorite = ({ rank, title, image, score, url, type, startDate, endDa
                         <DeleteOutlineIcon />
                     </IconButton>
                     <IconButton aria-label="view">
-                        <a href={url}>
-                            <FindInPageIcon />
-                        </a>
+                        <a href={url}><FindInPageIcon /></a>
                     </IconButton>
-                    <Typography className={classes.rank} variant='button' color='primary'>MyAnimeList Rank: {rank}</Typography>
+                    <Typography className={classes.rank} variant='button' color='primary'>
+                        MyAnimeList Rank: {rank}
+                    </Typography>
                 </CardActions>
             </Card>
         </Grid>

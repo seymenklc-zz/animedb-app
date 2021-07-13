@@ -4,10 +4,14 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
 import { Container } from '@material-ui/core';
 
+// Components
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar';
+
+// Pages
 import Populer from './pages/Populer/Populer';
 import Favorites from './pages/Favorites/Favorites';
 import Search from './pages/Search/Search';
@@ -24,12 +28,11 @@ const App = () => {
         return `${string.substring(0, maxLength)} ...`;
     };
 
-    const saveToLocalStorage = (items) => {
-        localStorage.setItem('favorites', JSON.stringify(items));
-    };
+    const saveToLocalStorage = (items) => localStorage.setItem('favorites', JSON.stringify(items));
 
     const addFavorite = (anime) => {
         const newFavoritesList = [...favorites, anime];
+
         setFavorites(newFavoritesList);
         saveToLocalStorage(newFavoritesList);
         addedNotify();
@@ -37,6 +40,7 @@ const App = () => {
 
     const removeFavorite = (id) => {
         const newFavoritesList = favorites.filter((fav) => fav.id !== id);
+
         setFavorites(newFavoritesList);
         removeNotify();
     };
@@ -45,26 +49,28 @@ const App = () => {
         const favAnime = localStorage.getItem('favorites');
         if (favAnime) {
             setFavorites(JSON.parse(favAnime));
-        } else {
-            return null;
-        }
+        } else return null;
     }, [setFavorites]);
 
     return (
-        <>
-            <Router>
-                <Container>
-                    <Header />
-                    <Switch>
-                        <Route exact path='/' component={() => <Populer handleFavoritesClick={addFavorite} truncateOverview={truncateOverview} />} />
-                        <Route path='/favorites' component={() => <Favorites favorites={favorites} removeFavorite={removeFavorite} truncateOverview={truncateOverview} />} />
-                        <Route path='/search' component={() => <Search truncateOverview={truncateOverview} />} />
-                    </Switch>
-                    <Navbar />
-                </Container>
-            </Router>
+        <Router>
+            <Container>
+                <Header />
+                <Switch>
+                    <Route exact path='/' component={() => (
+                        <Populer handleFavoritesClick={addFavorite} truncateOverview={truncateOverview} />
+                    )} />
+
+                    <Route path='/favorites' component={() => (
+                        <Favorites favorites={favorites} removeFavorite={removeFavorite} truncateOverview={truncateOverview} />
+                    )} />
+
+                    <Route path='/search' component={() => <Search truncateOverview={truncateOverview} />} />
+                </Switch>
+                <Navbar />
+            </Container>
             <ToastContainer />
-        </>
+        </Router>
     );
 };
 

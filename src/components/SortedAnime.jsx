@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import clsx from 'clsx';
+
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid, Typography, IconButton, Avatar, CardActions, CardContent, CardMedia, CardHeader, Card, Collapse, TextField } from '@material-ui/core';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SortedAnime = ({ title, image, score, url, type, episodes, members, synopsis, truncateOverview }) => {
-    const [expanded, setExpanded] = React.useState(false);
+    const [expanded, setExpanded] = useState(false);
 
     const classes = useStyles();
 
@@ -71,10 +72,10 @@ const SortedAnime = ({ title, image, score, url, type, episodes, members, synops
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites"><FavoriteIcon /></IconButton>
-                    <a href={url}>
-                        <FindInPageIcon />
-                    </a>
+                    <IconButton aria-label="add to favorites">
+                        <FavoriteIcon />
+                    </IconButton>
+                    <a href={url}><FindInPageIcon /></a>
                     <IconButton
                         className={clsx(classes.expand, {
                             [classes.expandOpen]: expanded,
@@ -91,7 +92,7 @@ const SortedAnime = ({ title, image, score, url, type, episodes, members, synops
                         <TextField
                             label="Synopsis"
                             defaultValue={synopsis}
-                            InputProps={{ readOnly: true, }}
+                            InputProps={{ readOnly: true }}
                             multiline
                             variant='filled'
                         />
